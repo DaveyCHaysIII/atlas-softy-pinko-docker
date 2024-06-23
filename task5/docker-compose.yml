@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+
+  proxy:
+    build:
+      context: ./proxy
+      dockerfile: Dockerfile
+    container_name: proxy
+    image: task5_proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build:
+      context: ./back-end
+      dockerfile: Dockerfile
+    container_name: task4_backend
+    image: task4_backend
+    expose:
+      - "5252"
+
+  frontend:
+    build:
+      context: ./front-end
+      dockerfile: Dockerfile
+    container_name: task4_frontend
+    image: task4_frontend
+    expose:
+      - "9000"
+    depends_on:
+      - backend
